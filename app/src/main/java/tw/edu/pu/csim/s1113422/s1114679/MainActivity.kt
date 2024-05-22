@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +37,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import tw.edu.pu.csim.s1113422.s1114679.ui.theme.S1114679Theme
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+
+import androidx.compose.foundation.layout.Column
+
+import androidx.compose.material3.Button
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -53,6 +65,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun FirstScreen(navController: NavHostController) {
     val context = LocalContext.current
@@ -63,7 +76,7 @@ fun FirstScreen(navController: NavHostController) {
     {
         Text(text = "簡介",
             fontSize = 15.sp,
-            color = Color.Red)
+            color = Color.Blue)
     }
 }
 @Composable
@@ -73,18 +86,21 @@ fun SecondScreen(navController: NavHostController) {
         .background(Color.White),
     ) {
 
+
         Text(text = "主要機構",
             fontSize = 15.sp,
-            color = Color.Blue
+            color = Color.Red
         )
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Main() {
     val navController = rememberNavController()
     var showMenu by remember {mutableStateOf(false) }
+
 
     Column {
         TopAppBar(
@@ -95,6 +111,7 @@ fun Main() {
                     alpha = 0.7f,
                 )
             },
+
 
             actions = {
                 IconButton(
@@ -109,14 +126,19 @@ fun Main() {
                         text = { Text("簡介") },
                         onClick = { navController.navigate("JumpFirst") })
 
+
                     DropdownMenuItem(
                         text = { Text("主要機構") },
                         onClick = { navController.navigate("JumpSecond") })
                 }
 
 
+
+
             }
         )
+
+
 
 
         NavHost(navController = navController, startDestination = "JumpFirst") {
@@ -124,10 +146,13 @@ fun Main() {
                 FirstScreen(navController = navController)
             }
 
+
             composable("JumpSecond") {
                 SecondScreen(navController = navController)
             }
         }
     }
 }
+
+
 
