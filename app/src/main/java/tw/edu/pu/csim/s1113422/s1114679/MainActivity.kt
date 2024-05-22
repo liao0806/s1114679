@@ -74,9 +74,20 @@ fun FirstScreen(navController: NavHostController) {
         .background(Color.White),
     )
     {
-        Text(text = "簡介",
+        Text(text = "瑪利亞基金會服務總覽",
             fontSize = 15.sp,
             color = Color.Blue)
+        Image(
+            painter = painterResource(id = R.drawable.service),
+            contentDescription = "圖片",
+            alpha = 0.7f,
+            modifier = Modifier
+        )
+        Button(onClick = {
+            navController.navigate("JumpSecond")
+        }) {
+            Text(text = "作者：資管二B廖珮妤")
+        }
     }
 }
 @Composable
@@ -86,14 +97,23 @@ fun SecondScreen(navController: NavHostController) {
         .background(Color.White),
     ) {
 
-
-        Text(text = "主要機構",
+        Text(text = "APP作者",
             fontSize = 15.sp,
-            color = Color.Red
+            color = Color.Blue
         )
+        Image(
+            painter = painterResource(id = R.drawable.me),
+            contentDescription = "圖片",
+            alpha = 0.7f,
+            modifier = Modifier
+        )
+        Button(onClick = {
+            navController.navigate("JumpFirst")
+        }) {
+            Text(text = "服務總覽")
+        }
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -101,17 +121,9 @@ fun Main() {
     val navController = rememberNavController()
     var showMenu by remember {mutableStateOf(false) }
 
-
-    Column {
+    Column{
         TopAppBar(
-            title = {
-                Image(
-                    painter = painterResource(id = R.drawable.maria),
-                    contentDescription = "圖片",
-                    alpha = 0.7f,
-                )
-            },
-
+            title = { Text(text = "頁面轉換實例") },
 
             actions = {
                 IconButton(
@@ -123,22 +135,17 @@ fun Main() {
                     expanded = showMenu, onDismissRequest = { showMenu = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text("簡介") },
-                        onClick = { navController.navigate("JumpFirst") })
-
+                        text = { Text("服務總覽") },
+                        onClick = { navController.navigate("JumpFirst")})
 
                     DropdownMenuItem(
-                        text = { Text("主要機構") },
-                        onClick = { navController.navigate("JumpSecond") })
+                        text = { Text("作者：資管二B廖珮妤") },
+                        onClick = { navController.navigate("JumpSecond")})
                 }
-
-
 
 
             }
         )
-
-
 
 
         NavHost(navController = navController, startDestination = "JumpFirst") {
@@ -146,13 +153,13 @@ fun Main() {
                 FirstScreen(navController = navController)
             }
 
-
             composable("JumpSecond") {
                 SecondScreen(navController = navController)
             }
         }
     }
 }
+
 
 
 
